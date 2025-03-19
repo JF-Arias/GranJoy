@@ -1,6 +1,6 @@
 # Granjoy - Plataforma de Planificación de Granjas
 
-Granjoy es una plataforma web y móvil diseñada para optimizar la gestión y planificación de granjas. Proporciona herramientas para la administración de cultivos, la planificación de recursos, el seguimiento de actividades y el análisis financiero, entre otros.
+Granjoy es una plataforma web y móvil diseñada para optimizar la gestión y planificación de granjas. Proporciona herramientas para la administración avicola, la planificación de recursos, el seguimiento de actividades y el análisis financiero, entre otros.
 
 ## Características Principales
 - **Gestor de Cultivos:** Registra y controla el desarrolo de cria avicola.
