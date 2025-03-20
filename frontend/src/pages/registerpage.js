@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css';
 
 function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -46,7 +47,7 @@ function RegisterPage() {
     };
 
     return (
-    <div>
+    <div className="container">
         <h1>Registro de Usuario</h1>
         <form onSubmit={handleSubmit}>
         {Object.keys(formData).map((key) => (
