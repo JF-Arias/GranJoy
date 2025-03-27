@@ -1,22 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../db');
-const authMiddleware = require('../middlewares/authMiddleware'); // Middleware de autenticación
+const authMiddleware = require('../middlewares/authMiddleware'); // Middleware para autenticar
+const pool = require('../db'); // Conexión a la BD
 
-// Obtener perfil del usuario autenticado
-router.get('/user-profile', authMiddleware, async (req, res) => {
+// Ruta para obtener el perfil del usuario
+router.get('/profile', authMiddleware, async (req, res) => {
     try {
-        const userId = req.user.usr_id; // El ID del usuario viene del token
+        const userId = req.user.id; // Extrae el ID del usuario autenticado
+        const result = await pool.query('SELECT nombres, apellidos, correo_electronico, telefono FROM usuarios WHERE id = $1', [userId]);
 
-        const [user] = await pool.query('SELECT nombres, apellidos, edad, documento_identidad, correo_electronico, telefono, departamento, municipio FROM Usuarios WHERE usr_id = ?', [userId]);
-
-        if (user.length === 0) {
+        if (result.rows.length === 0) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
         }
 
-        res.json(user[0]); // Enviar los datos del usuario
+        res.json(result.rows[0]);
     } catch (error) {
-        res.status(500).json({ message: 'Error al obtener los datos del usuario', error: error.message });
+        console.error(error);
+        res.status(500).json({ message: 'Error al obtener el perfil', error: error.message });
     }
 });
 
