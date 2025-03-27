@@ -5,6 +5,7 @@ const pool = require('./db');
 const app = express();
 const port = 3000;
 const authRoutes = require('./routes/authRoutes');
+const authRoutes = require('./routes/userRoutes');
 
 // Habilita CORS para que el frontend pueda comunicarse con el backend
 app.use(cors());
