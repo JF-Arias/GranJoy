@@ -15,7 +15,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
 
         // Corrección: usar usr_id en la consulta
         const result = await pool.query(
-            'SELECT nombres, apellidos, correo_electronico, telefono FROM usuarios WHERE usr_id = $1', 
+            'SELECT nombres, apellidos, correo_electronico, telefono FROM usuarios WHERE usr_id = ?', 
             [userId]
         );
 
