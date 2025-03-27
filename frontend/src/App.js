@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
-import UserProfilePage from './UserProfilePage';
+import UserProfilePage from './pages/UserProfilePage';
 
 function App() {
   return (
