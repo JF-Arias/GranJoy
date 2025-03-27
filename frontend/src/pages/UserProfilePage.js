@@ -2,26 +2,43 @@ import React, { useEffect, useState } from 'react';
 
 function UserProfilePage() {
     const [userData, setUserData] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Aquí deberías hacer una petición al backend para obtener la info del usuario
-        const fakeUser = {
-            nombres: 'Juan',
-            apellidos: 'Pérez',
-            edad: 30,
-            documento_identidad: '12345678',
-            correo_electronico: 'juan.perez@example.com',
-            telefono: '3001234567',
-            departamento: 'Cundinamarca',
-            municipio: 'Bogotá'
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem('token'); // Obtener el token
+                if (!token) {
+                    setError('No hay token de autenticación.');
+                    return;
+                }
+
+                const response = await fetch('http://localhost:3000/user-profile', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    setUserData(data);
+                } else {
+                    setError(data.message || 'Error al obtener los datos.');
+                }
+            } catch (err) {
+                setError('Error al conectar con el servidor.');
+            }
         };
 
-        setUserData(fakeUser);
+        fetchUserData();
     }, []);
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
             <h1 className="text-3xl font-bold mb-6">Perfil de Usuario</h1>
+            {error && <p className="text-red-500">{error}</p>}
             {userData ? (
                 <div className="bg-white p-6 rounded-lg shadow-md w-96">
                     {Object.entries(userData).map(([key, value]) => (
