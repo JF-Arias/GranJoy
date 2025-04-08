@@ -8,8 +8,11 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 
 // Habilita CORS para que el frontend pueda comunicarse con el backend
-app.use(cors());
-
+app.use(cors({
+    origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
 // Middleware para parsear JSON
 app.use(express.json());
 
