@@ -1,16 +1,10 @@
-// LoginPage.jsx
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { isAuthenticated } from '../utils/auth';
+export const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    return !!token; // true si hay token, false si no
+    };
+    
+    // src/utils/auth.js
 
-const LoginPage = () => {
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (isAuthenticated()) {
-            navigate('/perfil', { replace: true }); // Evita regresar con "atrás"
-        }
-    }, []);
-
-    // tu código de login...
-};
+export const logout = () => {
+    localStorage.removeItem('token');
+    };  

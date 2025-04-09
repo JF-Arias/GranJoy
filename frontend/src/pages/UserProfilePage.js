@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UserProfilePage() {
     const [userData, setUserData] = useState(null);
     const [error, setError] = useState(null);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({ nombres: '', apellidos: '', correo_electronico: '', telefono: '' });
+    const navigate = useNavigate(); // para redirigir
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -24,7 +26,7 @@ function UserProfilePage() {
                 const data = await response.json();
                 if (response.ok) {
                     setUserData(data);
-                    setFormData(data); // Llenar el formulario con los datos actuales
+                    setFormData(data);
                 } else {
                     setError(data.message || 'Error al obtener los datos.');
                 }
@@ -48,7 +50,6 @@ function UserProfilePage() {
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
-            
 
             const data = await response.json();
             if (response.ok) {
@@ -77,14 +78,19 @@ function UserProfilePage() {
             const data = await response.json();
             if (response.ok) {
                 alert('Cuenta eliminada correctamente.');
-                localStorage.removeItem('token'); // Eliminar token de autenticación
-                window.location.href = '/'; // Redirigir a la página de inicio
+                localStorage.removeItem('token');
+                navigate('/');
             } else {
                 setError(data.message || 'Error al eliminar la cuenta.');
             }
         } catch (err) {
             setError('Error al conectar con el servidor.');
         }
+    };
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/'); // Redirige a inicio
     };
 
     return (
@@ -106,8 +112,11 @@ function UserProfilePage() {
                         {Object.entries(userData).map(([key, value]) => (
                             <p key={key} className="mb-2"><strong>{key.replace('_', ' ').toUpperCase()}:</strong> {value}</p>
                         ))}
-                        <button onClick={() => setEditMode(true)} className="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">Editar</button>
-                        <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 rounded-lg">Eliminar Cuenta</button>
+                        <div className="flex flex-col gap-2">
+                            <button onClick={() => setEditMode(true)} className="bg-blue-500 text-white px-4 py-2 rounded-lg">Editar</button>
+                            <button onClick={handleDelete} className="bg-red-500 text-white px-4 py-2 rounded-lg">Eliminar Cuenta</button>
+                            <button onClick={handleLogout} className="bg-gray-800 text-white px-4 py-2 rounded-lg">Cerrar Sesión</button>
+                        </div>
                     </div>
                 )
             ) : (

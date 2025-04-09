@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../utils/auth'; // Asegúrate de tener esta función
 
 function DashboardPage() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!isAuthenticated()) {
+            navigate('/login', { replace: true }); // Redirige y bloquea "volver atrás"
+        }
+    }, [navigate]);
 
     const handleAvicultureClick = () => {
         alert('Navegando a Avicultura... (en desarrollo)');
@@ -34,3 +41,4 @@ function DashboardPage() {
 }
 
 export default DashboardPage;
+
