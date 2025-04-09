@@ -27,4 +27,21 @@ router.post('/', authMiddleware, async (req, res) => {
     }
 });
 
+// Obtener granjas del usuario autenticado
+router.get('/mis-granjas', authMiddleware, async (req, res) => {
+    try {
+        const usr_id = req.user.usr_id;
+        const [granjas] = await pool.query(
+            'SELECT grj_id, nombre FROM Granjas WHERE usr_id = ?',
+            [usr_id]
+        );
+        res.json(granjas);
+    } catch (error) {
+        console.error('Error al obtener granjas:', error);
+        res.status(500).json({ message: 'Error al obtener las granjas' });
+    }
+});
+
+
+
 module.exports = router;
