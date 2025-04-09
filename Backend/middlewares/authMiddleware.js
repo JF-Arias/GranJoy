@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
-console.log("Encabezados recibidos:", req.headers);
+
 
 module.exports = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    console.log("Encabezados recibidos:", req.headers);
 
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: 'Acceso denegado. Token no proporcionado.' });

@@ -9,7 +9,7 @@ const userRoutes = require('./routes/userRoutes');
 
 // Habilita CORS para que el frontend pueda comunicarse con el backend
 app.use(cors({
-    origin: 'http://localhost:3000', // Cambia esto por la URL de tu frontend
+    origin: 'http://localhost:3001', // Cambia esto por la URL de tu frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 }));
