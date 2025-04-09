@@ -12,7 +12,7 @@ function DashboardPage() {
     }, [navigate]);
 
     const handleAvicultureClick = () => {
-        alert('Navegando a Avicultura... (en desarrollo)');
+        navigate('/avicola'); // Redirige a la página de avicultura
     };
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { isAuthenticated } from '../utils/auth'; // Ajusta el path si estás en otra carpeta
+import { isAuthenticated } from '../utils/auth'; // Asegúrate de que esta función retorne true si hay token
 
 function LoginPage() {
     const [formData, setFormData] = useState({
@@ -10,17 +10,17 @@ function LoginPage() {
 
     const navigate = useNavigate();
 
-  //  Redirige si ya hay sesión activa
+  // Redirige inmediatamente si ya hay sesión activa
     useEffect(() => {
     if (isAuthenticated()) {
-      navigate('/dashboard', { replace: true }); // o '/perfil'
+        navigate('/dashboard', { replace: true });
     }
     }, [navigate]);
 
     const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    }; 
+    };
 
     const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ function LoginPage() {
         if (response.ok) {
         alert('Inicio de sesión exitoso');
         localStorage.setItem('token', data.token);
-        navigate('/dashboard');
+        navigate('/dashboard', { replace: true });
         } else {
         alert(data.message || 'Error al iniciar sesión');
         }
@@ -44,6 +44,11 @@ function LoginPage() {
         alert('Error al conectar con el servidor');
     }
     };
+
+  // Si ya está autenticado, no renderices el formulario
+    if (isAuthenticated()) {
+    return null; // o <p>Redirigiendo...</p>
+    }
 
     return (
     <div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import AvicolaPage from './pages/AvicolaPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import UserProfilePage from './pages/UserProfilePage';
@@ -32,6 +33,14 @@ function App() {
             </ProtectedRoute>
           } 
         />
+        <Route 
+        path="/avicola" 
+        element={
+        <ProtectedRoute>
+          <AvicolaPage />
+    </ProtectedRoute>
+  } 
+/>
       </Routes>
     </Router>
   );

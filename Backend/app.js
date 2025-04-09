@@ -6,6 +6,7 @@ const app = express();
 const port = 3000;
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const granjasRoutes = require('./routes/granjasRoutes');
 
 // Habilita CORS para que el frontend pueda comunicarse con el backend
 app.use(cors({
@@ -19,6 +20,7 @@ app.use(express.json());
 // Rutas
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/granjas', granjasRoutes);
 
 // Inicia el servidor
 app.listen(port, () => {
