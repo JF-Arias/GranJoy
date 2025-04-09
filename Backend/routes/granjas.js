@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../config/db'); // conexión a la BD
-const authMiddleware = require('../middleware/auth'); // si usas auth
+const { registrarGranja } = require('../controllers/granjaController'); // controlador para registrar granja
+const pool = require('../db'); // conexión a la BD
+const authMiddleware = require('../middlewares/authMiddleware'); // si usas auth
 
 // Ruta para registrar una granja
-router.post('/registrar', authMiddleware, async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     const { nombre, direccion } = req.body;
     const usr_id = req.user.usr_id; // asumimos que el middleware auth lo extrae del token
 
