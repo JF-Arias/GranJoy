@@ -50,7 +50,7 @@ function AvicolaPage() {
             const data = await response.json();
             if (response.ok) {
                 alert('Granja registrada correctamente');
-                navigate('/recursos'); // Redirigir a la página de recursos
+                navigate('/RcursosPage'); // Redirigir a la página de recursos
             } else {
                 setError(data.message || 'Error al registrar la granja');
             }
@@ -92,7 +92,7 @@ function AvicolaPage() {
                 {yaTieneGranja && (
                     <button
                         type="button"
-                        onClick={() => navigate('/recursos')}
+                        onClick={() => navigate('./RescursosPage.js')}
                         className="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
                     >
                         Ya tengo una granja, continuar
