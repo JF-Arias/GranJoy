@@ -9,7 +9,7 @@ function RecursosPage() {
         numero_gallinas: '',
         raza_gallinas: '',
         semanas_vida: '',
-        estado: ''
+        estado: '1' // Por defecto activo
     });
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -50,25 +50,29 @@ function RecursosPage() {
 
         try {
             const token = localStorage.getItem('token');
+            const payload = {
+                ...formData,
+                estado: parseInt(formData.estado) // convertir a número
+            };
+
             const response = await fetch('http://localhost:3000/recursos', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             });
 
             const data = await response.json();
             if (response.ok) {
                 alert('Recurso registrado correctamente');
-                // Limpiar formulario después de registrar
                 setFormData({
                     grj_id: '',
                     numero_gallinas: '',
                     raza_gallinas: '',
                     semanas_vida: '',
-                    estado: ''
+                    estado: '1'
                 });
                 navigate('/dashboard');
             } else {
@@ -138,15 +142,16 @@ function RecursosPage() {
                 />
 
                 <label className="block mb-2">Estado</label>
-                <input
-                    type="text"
+                <select
                     name="estado"
-                    placeholder="Ej: Activo / Inactivo"
                     value={formData.estado}
                     onChange={handleChange}
                     required
                     className="w-full p-2 border mb-4 rounded"
-                />
+                >
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                </select>
 
                 <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                     Registrar Recurso

@@ -6,7 +6,9 @@ import AvicolaPage from './pages/AvicolaPage';
 import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import UserProfilePage from './pages/UserProfilePage';
-import ProtectedRoute from './components/ProtectedRoute'; // Asegúrate de tener este archivo
+import RecursosPage from './pages/RecursosPage'; 
+import ProtectedRoute from './components/ProtectedRoute';
+import ManageResourcesPage from './pages/ManageResourcesPage'
 
 function App() {
   return (
@@ -16,7 +18,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         
-        {/* Rutas protegidas */}
         <Route 
           path="/dashboard" 
           element={
@@ -34,13 +35,29 @@ function App() {
           } 
         />
         <Route 
-        path="/avicola" 
-        element={
-        <ProtectedRoute>
-          <AvicolaPage />
-    </ProtectedRoute>
-  } 
-/>
+          path="/avicola" 
+          element={
+            <ProtectedRoute>
+              <AvicolaPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/recursos" 
+          element={
+            <ProtectedRoute>
+              <RecursosPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/manage-resources" 
+          element={
+            <ProtectedRoute>
+              <ManageResourcesPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );
